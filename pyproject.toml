@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "aircraft-service"
+version = "0.1.0"
+description = ""
+authors = ["rom.sinitsyn <rom.sinitsyn@x5.ru>"]
+readme = "README.md"
+packages = [{include = "aircraft_service"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "^4.2.5"
+psycopg2-binary = "^2.9.7"
+djangorestframework = "^3.14.0"
+drf-spectacular = "^0.26.4"
+djangorestframework-simplejwt = "^5.3.0"
+django-silk = "^5.0.3"
+djoser = "^2.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
