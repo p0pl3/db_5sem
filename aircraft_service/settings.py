@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_spectacular',
-    'silk',
     'service',
     'rest_framework_simplejwt',
 
@@ -54,7 +53,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = "aircraft_service.urls"

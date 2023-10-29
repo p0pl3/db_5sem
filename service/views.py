@@ -30,7 +30,7 @@ class IsOwner(permissions.BasePermission):
 class ClientTransportViewSet(ModelViewSet):
     queryset = UserTransport.objects.all()
     serializer_class = ClientTransportSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class UserViewSet(ModelViewSet):
@@ -42,31 +42,31 @@ class UserViewSet(ModelViewSet):
 class HangarViewSet(ModelViewSet):
     queryset = WorkStation.objects.all()
     serializer_class = HangarSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class StatusMaintenanceViewSet(ModelViewSet):
     queryset = StatusOrder.objects.all()
     serializer_class = StatusMaintenanceSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class PartViewSet(ModelViewSet):
     queryset = Detail.objects.all()
     serializer_class = PartSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class WorkPartViewSet(ModelViewSet):
     queryset = OrderDetail.objects.all()
     serializer_class = WorkPartSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class MaintenanceViewSet(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = MaintenanceSerializer
-    permission_classes = (UserPermission,)
+    # permission_classes = (UserPermission,)
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -77,22 +77,22 @@ class MaintenanceViewSet(ModelViewSet):
 class PrimaryDiagnosisViewSet(ModelViewSet):
     queryset = Malfunction.objects.all()
     serializer_class = PrimaryDiagnosisSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class RepairDocumentViewSet(ModelViewSet):
     queryset = OrderDocument.objects.all()
     serializer_class = RepairDocumentSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class PaymentMethodViewSet(ModelViewSet):
     queryset = PaymentMethod.objects.all()
     serializer_class = PaymentMethodSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)
 
 
 class RepairerViewSet(ModelViewSet):
     queryset = Employee.objects.all()
     serializer_class = RepairerSerializer
-    permission_classes = (IsAdmin,)
+    # permission_classes = (IsAdmin,)

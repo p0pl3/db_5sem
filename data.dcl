@@ -1,42 +1,42 @@
 INSERT INTO "user" (first_name, username, last_name, phone, email, password) VALUES
-('Roman', 'blstz13', 'Dmitrievich', '+70151071717', 's1niewfgqwgqfg20w3@mail.ru'),
-('Petya', 'qwerty', 'Alexandrovich', '+70120751077', 'siqtggfgcinr20w3@mail.ru'),
-('Vasya', '', 'Alexeevich', '+71777571177', '1initgfqwgnrw003@mail.ru'),
-('Misha', 'Romanovich', '+70570011177', 'siqfgici1gr2ewf03@mail.ru'),
-('Marina', 'Alexandrovich', '+79070011577', 'sinqwggnr2ewftg3@mail.ru');
+('Roman', 'blstz13', 'Dmitrievich', '+70151071717', 's1niewfgqwgqfg20w3@mail.ru', 'qwerty'),
+('Petya', 'qwerty', 'Alexandrovich', '+70120751077', 'siqtggfgcinr20w3@mail.ru','qwerty'),
+('Vasya', '', 'Alexeevich', '+71777571177', '1initgfqwgnrw003@mail.ru','qwerty'),
+('Misha', 'Romanovich', '+70570011177', 'siqfgici1gr2ewf03@mail.ru','qwerty'),
+('Marina', 'Alexandrovich', '+79070011577', 'sinqwggnr2ewftg3@mail.ru','qwerty');
 
 
 
 INSERT INTO user_transport (model, color, serial_number, user_id, weight) VALUES
-('Bisnes JETT', 'Gray', '6-123-DADAD', 1, ),
-('Sport JETT', 'White', 'eqw-123-WER', 1, ),
-('Sport AIR', 'Red', '1-123-RW', 2, ),
-('Sport WATER', 'Green', '45-as-QQQQ', 2,),
-('JEP JETT', 'Blue', '123-s-EQWE', 3, ),
-('S7 FLOT', 'Gray', 'FSD-EW-5', 4, ),
-('S9 OT', 'Yellow', 'B-1-QQQ', 5, );
+('Bisnes JETT', 'Gray', '6-123-DADAD', 1, 1000),
+('Sport JETT', 'White', 'eqw-123-WER', 1, 2000),
+('Sport AIR', 'Red', '1-123-RW', 2, 3000),
+('Sport WATER', 'Green', '45-as-QQQQ', 2, 10000),
+('JEP JETT', 'Blue', '123-s-EQWE', 3, 5000),
+('S7 FLOT', 'Gray', 'FSD-EW-5', 4, 3500),
+('S9 OT', 'Yellow', 'B-1-QQQ', 5, 2500);
 
 
-INSERT INTO part (name, part_code, price, quantity, manufacture_date) VALUES
-('ENGINE d2', '73Aw', 100000.00, 1, '2023-10-13'),
-('Window airobus', 'qw543tgAw', 60000.00, 12, '2023-09-11'),
-('Chair dq2', '7u65rgt', 180000.00, 4, '2023-01-12'),
-('Vehicle', '12345y', 100100.00, 5, '2023-11-15'),
-('Control panel ', '123r', 234500.00, 8, '2023-12-01');
+INSERT INTO detail (name, detail_code, price, quantity, serial_number) VALUES
+('ENGINE d2', '73Aw', 100000.00, 1, 'qwe123'),
+('Window airobus', 'qw543tgAw', 60000.00, 12, 'x7cv92f'),
+('Chair dq2', '7u65rgt', 180000.00, 4, 'no1n4hgv14'),
+('Vehicle', '12345y', 100100.00, 5, 'yb4124bob'),
+('Control panel ', '123r', 234500.00, 8, '124vcu1v4v');
 
 
-INSERT INTO hangar (name, location, area, code) VALUES
-('AVL-1', 'Moscow', '1200', 'X2Z'),
-('AVL-2', 'Piter', '2200', 'XY35'),
-('AVL-3', 'Tomsk', '5200', 'XY888'),
-('AVL-4', 'Mordovia', '1200', 'X212');
+INSERT INTO work_station (name, location) VALUES
+('AVL-1', 'Moscow'),
+('AVL-2', 'Piter'),
+('AVL-3', 'Tomsk'),
+('AVL-4', 'Mordovia');
 
 
-INSERT INTO status_maintenance (name, status_code) VALUES
-('START', 'STRT'),
-('STOP', 'STP'),
-('WAIT', 'WT'),
-('DONE', 'DN');
+INSERT INTO status_order (name) VALUES
+('START'),
+('STOP'),
+('WAIT'),
+('DONE');
 
 
 INSERT INTO repairer (first_name, middle_name, last_name, phone, salary, age, degree) VALUES
