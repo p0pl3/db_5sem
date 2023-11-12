@@ -4,8 +4,8 @@ select * from order_document where total_price < 200000;
 select * from employee where salary >= 600;
 select * from employee where salary <= 1400;
 select * from employee where salary != 1400;
-select * from "order" where order.malfunction_id is null ;
-select * from "order" where order.malfunction_id is not null ;
+select * from "order" where "order".malfunction_id is null;
+select * from "order" where "order".malfunction_id is not null;
 select * from employee where salary between 12 and 1200;
 select * from employee where id in (1, 4);
 select * from employee where employee.first_name LIKE 'Pet%';
@@ -15,8 +15,8 @@ select * from employee where employee.first_name NOT LIKE 'Vas%';
 -- - снимки экрана (скриншоты) выборки данных по различным параметрам
 -- (по каждому оператору);
 
-select * from detail "order" by name;
-select * from detail "order" by name DESC ;
+select * from detail ORDER BY name;
+select * from detail ORDER BY name DESC ;
 -- - снимок экрана (скриншоты) сортировки данных;
 select * from employee;
 ALTER TABLE employee ADD COLUMN email varchar(127);
@@ -35,19 +35,14 @@ select * from employee;
 DELETE FROM employee where id = 5;
 select * from employee;
 
-
 -- - снимки экрана (скриншоты) применения операторов изменения данных
 -- в таблицах Вашей базы данных;
 -- - добавить все практические работы по SQL в итоговых отчет
 
 
-
-
-
 --
 -- 3 PRACTICA
 --
-
 
 select first_name from employee;
 SELECT * from work_station where id = 1;
@@ -64,15 +59,15 @@ m.id, m.order_date, m.order_deadline, wp.description  FROM "order" as m INNER JO
 where order_date ='2023-08-01' and NOT exists(select * from order_detail where wp.order_id = order_detail.order_id);
 
 
+select status_order_id, name, count('') from "order" JOIN status_order sm on sm.id = "order".status_order_id group by status_order_id, name;
+select status_order_id, name, count('') from "order" JOIN status_order sm on sm.id = "order".status_order_id group by status_order_id, name having count('') > 2 ;
 
-select status_order_id, name, count('') from "order" JOIN status_order sm on sm.id = order.status_order_id group by status_order_id, name;
-select status_order_id, name, count('') from "order" JOIN status_order sm on sm.id = order.status_order_id group by status_order_id, name having count('') > 2 ;
 
-select * from detail "order" by name;
-select * from detail "order" by name DESC ;
+select * from detail ORDER BY name;
+select * from detail ORDER BY name DESC ;
+
 
 -- деление здесь
-
 
 select * from user_transport as cl where not exists(
         select * from employee as r where not exists(
@@ -80,7 +75,6 @@ select * from user_transport as cl where not exists(
             where cl.id = m.user_transport_id and m.id = mr.order_id and r.id=mr.employee_id
             )
     );
-
 
 --
 
@@ -103,10 +97,10 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-        SELECT ct.model, rd.total_price, order.description
+        SELECT ct.model, rd.total_price, "order".description
         FROM "order"
-            JOIN order_document rd on rd.id = order.order_document_id
-            JOIN user_transport ct on ct.id = order.user_transport_id
+            JOIN order_document rd on rd.id = "order".order_document_id
+            JOIN user_transport ct on ct.id = "order".user_transport_id
         ORDER BY total_price DESC
         LIMIT 3;
 END;
@@ -126,7 +120,7 @@ BEGIN
         SELECT count(ct.id)
         INTO product_count
         FROM "order"
-            JOIN user_transport ct on ct.id = order.user_transport_id
+            JOIN user_transport ct on ct.id = "order".user_transport_id
         WHERE ct.model = _name;
 
     RETURN product_count;
@@ -151,7 +145,7 @@ BEGIN
         JOIN user_transport ct on user.id = ct.user_id
         JOIN "order" m on ct.id = m.user_transport_id
         JOIN order_document rd on rd.id = m.order_document_id
-                                       group by ct.user_id "order" by m desc limit 1;
+        group by ct.user_id ORDER BY m desc limit 1;
 END;
 $$
 LANGUAGE plpgsql;
@@ -170,9 +164,9 @@ END;
 $$
 LANGUAGE plpgsql;
 
-select * from "order" JOIN status_order sm on sm.id = order.status_order_id;
+select * from "order" JOIN status_order sm on sm.id = "order".status_order_id;
 select update_overdue_order();
-select * from "order" JOIN status_order sm on sm.id = order.status_order_id;
+select * from "order" JOIN status_order sm on sm.id = "order".status_order_id;
 
 
 CREATE OR REPLACE FUNCTION remove_old_order() returns bool
@@ -181,8 +175,8 @@ $$
     DECLARE
         list_order_id bigint[];
 BEGIN
-    select array_agg(order.id) into list_order_id FROM "order" WHERE order.id in (select order.id from "order"
-        JOIN order_document rd on rd.id = order.order_document_id
+    select array_agg("order".id) into list_order_id FROM "order" WHERE "order".id in (select "order".id from "order"
+        JOIN order_document rd on rd.id = "order".order_document_id
                                                                where rd.date_end < current_timestamp - interval '100 day') ;
     DELETE from order_employee AS m where m.order_id = any(list_order_id);
     DELETE from order_detail AS w where w.order_id = any(list_order_id);
@@ -196,21 +190,6 @@ LANGUAGE plpgsql;
 select m.order_date, m.description, rd.date_end from "order" as m JOIN order_document rd on rd.id = m.order_document_id;
 select remove_old_order();
 select m.order_date, m.description, rd.date_end from "order" as m JOIN order_document rd on rd.id = m.order_document_id;
-
-
-
-
--- CREATE OR REPLACE FUNCTION remove_old_order() returns bool
--- AS
--- $$
--- BEGIN
---     DELETE FROM "order"  WHERE order.id in (select * from "order"
---         JOIN order_document rd on rd.id = order.order_document_id
---                                                                where rd.date_end < current_timestamp - interval '100 day');
---     RETURN TRUE;
--- END;
--- $$
--- LANGUAGE plpgsql;
 
 
 CREATE OR REPLACE FUNCTION make_discounts_on_spare_details(
