@@ -82,13 +82,13 @@ from employee as e;
 -------
 
 select id,
-       description as current_description,
+       description as   current_description,
        user_transport_id,
        lag(description) over (partition by user_transport_id)
 from "order";
 
 select id,
-       description as current_description,
+       description as    current_description,
        user_transport_id,
        lead(description) over (partition by user_transport_id)
 from "order";
