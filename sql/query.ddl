@@ -69,12 +69,11 @@ select * from detail ORDER BY name DESC ;
 
 -- деление здесь
 
-select * from user_transport as cl where not exists(
-        select * from employee as r where not exists(
-                select 1 from order_employee as mr join "order" m on m.id = mr.order_id
-            where cl.id = m.user_transport_id and m.id = mr.order_id and r.id=mr.employee_id
-            )
-    );
+SELECT e.id FROM "employee" e WHERE NOT EXISTS (
+    SELECT o.id FROM "order" o WHERE NOT EXISTS (
+        SELECT * FROM "order_employee" oe WHERE oe.employee_id = e.id AND oe.order_id = o.id
+    )
+);
 
 --
 
