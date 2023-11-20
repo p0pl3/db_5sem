@@ -73,8 +73,8 @@ VALUES ('2023-09-01', '2023-09-25', 'ALL OF GOOD', 100000, 'last repair', 1),
        ('2023-09-07', '2023-10-01', 'ALL OF GOOD', 100000, 'check qwe', 4),
        ('2023-09-07', '2023-10-01', 'ALL OF GOOD', 100000, 'check asd', 5);
 
-INSERT INTO "order" (order_date, order_deadline, description, user_transport_id, work_station_id, malfunction_id,
-                     order_document_id, status_order_id)
+INSERT INTO "order" (order_date, order_deadline, description, user_transport_id,
+                     work_station_id, malfunction_id, order_document_id, status_order_id)
 VALUES ('2023-08-01', '2023-09-25', 'something...', 1, 1, 1, 1, 4),
        ('2023-07-01', '2023-09-25', 'crash something', 2, 2, 2, 2, 4),
        ('2023-09-07', '2023-10-01', 'crash wings', 3, 3, 3, 3, 4),
@@ -102,4 +102,4 @@ VALUES (1, 1),
        (3, 1),
        (3, 2),
        (4, 1),
-       (5, 2);
+       (5, 1);

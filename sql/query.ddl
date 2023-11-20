@@ -27,8 +27,8 @@ ALTER TABLE employee DROP COLUMN pochta;
 select * from employee;
 
 select * from employee;
-INSERT INTO employee (first_name, middle_name, last_name, phone, salary, age, degree) values
-('Petr', NULL, 'Sad', '+77777', 123, 30, 'Master');
+INSERT INTO "employee" ("first_name", "middle_name", "last_name", "phone", "salary", "age", "degree", "email", "sex")
+VALUES ('QWE', 'ASD', 'ZXC', '+71234567890', 1000.00, 60, 'SLAVE', 'email@email.ru', 'Trans');
 select * from employee;
 UPDATE employee SET last_name = 'SMILE' where id = 5;
 select * from employee;
@@ -44,38 +44,45 @@ select * from employee;
 -- 3 PRACTICA
 --
 
-select first_name from employee;
-SELECT * from work_station where id = 1;
 
+--проекция
+select first_name from employee;
+--селекция
+SELECT * from work_station where id = 1;
+--соединение
 select * from "order" as m1 INNER JOIN status_order ct on ct.id = m1.status_order_id;
+--объединение
 select * from "order" as m1 INNER JOIN work_station ct on ct.id = m1.work_station_id where location='Moscow' or location='Piter';
+--объединение
 select * from "order" as m1 INNER JOIN work_station ct on ct.id = m1.work_station_id where location='Moscow'
 UNION
 select * from "order" as m1 INNER JOIN work_station ct on ct.id = m1.work_station_id where location='Piter';
-SELECT m.id, m.order_date, m.order_deadline, wp.description FROM "order" as m INNER JOIN order_detail wp on m.id = wp.order_id
-where order_date ='2023-08-01' and  exists(select * from order_detail where wp.order_id = order_detail.order_id);
-SELECT
-m.id, m.order_date, m.order_deadline, wp.description  FROM "order" as m INNER JOIN order_detail wp on m.id = wp.order_id
-where order_date ='2023-08-01' and NOT exists(select * from order_detail where wp.order_id = order_detail.order_id);
-
-
-select status_order_id, name, count('') from "order" JOIN status_order sm on sm.id = "order".status_order_id group by status_order_id, name;
-select status_order_id, name, count('') from "order" JOIN status_order sm on sm.id = "order".status_order_id group by status_order_id, name having count('') > 2 ;
-
-
+--пересечение
+SELECT o.id from "order" as o
+    inner join "order_employee" as oe on o.id = oe.order_id
+    where oe.employee_id=1 and exists(
+        select oe2.order_id from order_employee as oe2
+        where oe2.order_id=oe.order_id and oe2.employee_id=2);
+--разность
+SELECT o.id from "order" as o
+    INNER JOIN "order_employee" as oe on o.id = oe.order_id
+    where oe.employee_id = 1 and not exists(
+        select oe2.order_id from order_employee as oe2
+        where oe2.order_id = oe.order_id and oe2.employee_id = 2);
+--группировка
+select status_order_id, name, count('') from "order" JOIN
+    status_order sm on sm.id = "order".status_order_id
+    group by status_order_id, name;
+select status_order_id, name, count('') from "order" JOIN
+    status_order sm on sm.id = "order".status_order_id
+    group by status_order_id, name having count('') > 2;
+--сортировка
 select * from detail ORDER BY name;
-select * from detail ORDER BY name DESC ;
-
-
--- деление здесь
-
+select * from detail ORDER BY name DESC;
+-- деление
 SELECT e.id FROM "employee" e WHERE NOT EXISTS (
     SELECT o.id FROM "order" o WHERE NOT EXISTS (
-        SELECT * FROM "order_employee" oe WHERE oe.employee_id = e.id AND oe.order_id = o.id
-    )
-);
-
---
+        SELECT * FROM "order_employee" oe WHERE oe.employee_id = e.id AND oe.order_id = o.id));
 
 
 
@@ -127,24 +134,24 @@ END;
 $$
 LANGUAGE plpgsql;
 
-select get_count_crashed_by_model('Bisnes JETT');
+select get_count_crashed_by_model('Boeing 747');
 
 
 
 
 CREATE OR REPLACE FUNCTION get_top_1_spending_customer()
 RETURNS TABLE (
-    user_id BIGINT,
+    user_id INTEGER,
     total_price DECIMAL
 )
 AS
 $$
 BEGIN
-    RETURN QUERY select ct.user_id, sum(rd.total_price) as m from "user"
-        JOIN user_transport ct on user.id = ct.user_id
+    RETURN QUERY select ct.user_id, sum(rd.total_price) as q from "user"
+        JOIN user_transport ct on "user".id = ct.user_id
         JOIN "order" m on ct.id = m.user_transport_id
         JOIN order_document rd on rd.id = m.order_document_id
-        group by ct.user_id ORDER BY m desc limit 1;
+        group by ct.user_id ORDER BY q desc limit 1;
 END;
 $$
 LANGUAGE plpgsql;
@@ -157,7 +164,7 @@ CREATE OR REPLACE FUNCTION update_overdue_order() returns bool
 AS
 $$
 BEGIN
-    UPDATE "order" SET status_order_id = 5 WHERE order_deadline < now();
+    UPDATE "order" SET status_order_id = 5 WHERE order_deadline < now() and status_order_id != 4;
     RETURN TRUE;
 END;
 $$
@@ -201,7 +208,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 select * from detail;
-SELECT make_discounts_on_spare_details('{Vehicle}'::TEXT[]);
+SELECT make_discounts_on_spare_details('{Fuel Tank}'::TEXT[]);
 select * from detail;
 
 
@@ -214,7 +221,7 @@ $$
 BEGIN
   UPDATE payment_method
   SET total_sum = NEW.total_sum * 0.95
-  WHERE transaction_number like 'SBP%';
+  WHERE transaction_number like 'SBP%' and payment_method.id=NEW.id;
   RETURN NEW;
 END;
 $$
@@ -227,7 +234,7 @@ EXECUTE FUNCTION make_discount_for_sbp();
 
 select * from payment_method;
 insert into payment_method (payment_date, status, total_sum, transaction_number) values
-(current_timestamp, false, 1200.00, 'SBP-213-4123-42');
+(current_timestamp, false, 4000.00, 'SBP-213-4123-43');
 select * from payment_method;
 
 
