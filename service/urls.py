@@ -17,5 +17,10 @@ router.register(r'repairer', RepairerViewSet, basename='repairer')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('get_top_1_spending_customer/', get_top_1_spending_customerViewSet.as_view()),
+    path('get_top_3_expensive_order/', get_top_3_expensive_orderViewSet.as_view()),
+    path('get_count_crashed_by_model/', get_count_crashed_by_modelViewSet.as_view()),
+    path('update_overdue_order/', update_overdue_orderViewSet.as_view()),
+    path('remove_old_order/', remove_old_orderViewSet.as_view()),
 ]

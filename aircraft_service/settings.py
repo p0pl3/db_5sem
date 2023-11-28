@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'service',
     'rest_framework_simplejwt',
+    'django_filters',
 
 ]
 
@@ -87,7 +88,7 @@ DATABASES = {
         'USER': os.getenv('POSTGRES_USER', 'postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'password'),
         'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
-        'PORT': os.getenv('POSTGRES_PORT', 54300),
+        'PORT': os.getenv('POSTGRES_PORT', 2000),
     },
 }
 
@@ -140,6 +141,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 
 # AUTH_USER_MODEL = 'service.Client'
