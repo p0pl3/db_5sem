@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # 'admin_tools',
+    # 'admin_tools.dashboard',
+    'service',
+
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -40,13 +44,17 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'drf_spectacular',
-    'service',
     'rest_framework_simplejwt',
     'django_filters',
+"corsheaders",
 
 ]
 
+# ADMIN_TOOLS_INDEX_DASHBOARD = 'service.dashboard.CustomIndexDashboard'
+# ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'service.dashboard.CustomAppIndexDashboard'
+
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -56,20 +64,26 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 ROOT_URLCONF = "aircraft_service.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates']
-        ,
-        "APP_DIRS": True,
+        "DIRS": [os.path.join(BASE_DIR, 'templates'),],
+        "APP_DIRS": False,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+            ],
+            'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'admin_tools.template_loaders.Loader',
             ],
         },
     },
@@ -115,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "RU-ru"
 
 TIME_ZONE = "UTC"
 

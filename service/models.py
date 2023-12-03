@@ -6,6 +6,8 @@ from django.db import models
 from django.conf import settings
 
 from django.contrib.auth import get_user_model
+
+
 # User_ = get_user_model()
 
 
@@ -18,6 +20,8 @@ class UserTransport(models.Model):
 
     class Meta:
         db_table = 'user_transport'
+        verbose_name = 'Транспорт клиента'
+        verbose_name_plural = 'Транспорты клиента'
 
 
 class WorkStation(models.Model):
@@ -26,6 +30,8 @@ class WorkStation(models.Model):
 
     class Meta:
         db_table = 'work_station'
+        verbose_name = 'Рабочая станция'
+        verbose_name_plural = 'Рабочие станции'
 
 
 class StatusOrder(models.Model):
@@ -33,6 +39,8 @@ class StatusOrder(models.Model):
 
     class Meta:
         db_table = 'status_order'
+        verbose_name = 'Статус Заказа'
+        verbose_name_plural = 'Статусы Заказов'
 
 
 class Detail(models.Model):
@@ -44,6 +52,8 @@ class Detail(models.Model):
 
     class Meta:
         db_table = 'detail'
+        verbose_name = 'Деталь'
+        verbose_name_plural = 'Детали'
 
 
 class OrderDetail(models.Model):
@@ -54,6 +64,8 @@ class OrderDetail(models.Model):
 
     class Meta:
         db_table = 'order_detail'
+        verbose_name = 'Деталь Заказа'
+        verbose_name_plural = 'Детали Заказов'
 
 
 class Order(models.Model):
@@ -63,12 +75,16 @@ class Order(models.Model):
     user_transport = models.ForeignKey(UserTransport, on_delete=models.CASCADE, related_name='transport_order')
     status_order = models.ForeignKey(StatusOrder, on_delete=models.CASCADE, related_name='order_status_order')
     work_station = models.ForeignKey(WorkStation, on_delete=models.CASCADE, related_name='work_station_order')
-    order_document = models.OneToOneField('OrderDocument', on_delete=models.SET_NULL, null=True, related_name='order_document_order')
-    malfunction = models.OneToOneField('Malfunction', on_delete=models.SET_NULL, null=True, related_name='malfunction_order')
+    order_document = models.OneToOneField('OrderDocument', on_delete=models.SET_NULL, null=True,
+                                          related_name='order_document_order')
+    malfunction = models.OneToOneField('Malfunction', on_delete=models.SET_NULL, null=True,
+                                       related_name='malfunction_order')
     employee = models.ManyToManyField('Employee')
 
     class Meta:
         db_table = 'order'
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
 
 class Malfunction(models.Model):
@@ -77,6 +93,8 @@ class Malfunction(models.Model):
 
     class Meta:
         db_table = 'malfunction'
+        verbose_name = 'Поломка'
+        verbose_name_plural = 'Поломки'
 
 
 class OrderDocument(models.Model):
@@ -89,6 +107,8 @@ class OrderDocument(models.Model):
 
     class Meta:
         db_table = 'order_document'
+        verbose_name = 'Документ по заказу'
+        verbose_name_plural = 'Документы по заказам'
 
 
 class PaymentMethod(models.Model):
@@ -99,6 +119,8 @@ class PaymentMethod(models.Model):
 
     class Meta:
         db_table = 'payment_method'
+        verbose_name = 'Метод Оплаты'
+        verbose_name_plural = 'Методы Оплаты'
 
 
 class Employee(models.Model):
@@ -114,3 +136,5 @@ class Employee(models.Model):
 
     class Meta:
         db_table = 'employee'
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'

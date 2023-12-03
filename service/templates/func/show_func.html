@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sql functions</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <div id="get_top_1_spending_customer">
+        <h2>get_top_1_spending_customer</h2>
+        <p id="get_top_1_spending_customer_result"></p>
+        <button onclick="get_top_1_spending_customer()">Отправить запрос</button>
+    </div>
+    <script>
+        function get_top_1_spending_customer() {
+      $.get("http://127.0.0.1:8000/api/v1/get_top_1_spending_customer/", function(data) {
+        // Обработка ответа
+          console.log(data)
+        document.getElementById("get_top_1_spending_customer_result").innerHTML = data['res'];
+      });
+    }
+    </script>
+
+
+    <div id="get_top_3_expensive_order">
+        <h2>get_top_3_expensive_order</h2>
+        <p id="get_top_3_expensive_order_result"></p>
+        <button onclick="get_top_3_expensive_order()">Отправить запрос</button>
+    </div>
+    <script>
+        function get_top_3_expensive_order() {
+      $.get("http://127.0.0.1:8000/api/v1/get_top_3_expensive_order/", function(data) {
+        // Обработка ответа
+          console.log(data)
+        document.getElementById("get_top_3_expensive_order_result").innerHTML = data['res'];
+      });
+    }
+    </script>
+
+
+    <div id="update_overdue_order">
+        <h2>update_overdue_order</h2>
+        <p id="update_overdue_order_result"></p>
+        <button onclick="update_overdue_order()">Отправить запрос</button>
+    </div>
+    <script>
+        function update_overdue_order() {
+      $.get("http://127.0.0.1:8000/api/v1/update_overdue_order/")
+        .done(function(data) {
+          // Обработка успешного ответа
+          document.getElementById("update_overdue_order_result").innerHTML = 'Успех!';
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          // Обработка ошибки
+          document.getElementById("update_overdue_order_result").innerHTML = 'Успех!';
+        });
+    }
+    </script>
+
+
+    <div id="remove_old_order">
+        <h2>remove_old_order</h2>
+        <p id="remove_old_order_result"></p>
+        <button onclick="remove_old_order()">Отправить запрос</button>
+    </div>
+    <script>
+        function remove_old_order() {
+      $.get("http://127.0.0.1:8000/api/v1/remove_old_order/", function(data) {
+        // Обработка ответа
+          console.log(data)
+        document.getElementById("remove_old_order_result").innerHTML = 'Успех!';
+      });
+    }
+    </script>
+</body>
+</html>

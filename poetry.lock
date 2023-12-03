@@ -298,6 +298,32 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-admin-tools"
+version = "0.9.3"
+description = "A collection of tools for the django administration interface"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-admin-tools-0.9.3.tar.gz", hash = "sha256:5aee0735907f0807c88b793f6b14eccff586e652d41e77f02c691f624f965672"},
+    {file = "django_admin_tools-0.9.3-py2.py3-none-any.whl", hash = "sha256:f4bef88a5c5f4b97a760c09b822fc6f0e9f12c91a755860b1c011d01345282d3"},
+]
+
+[[package]]
+name = "django-cors-headers"
+version = "4.3.1"
+description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django-cors-headers-4.3.1.tar.gz", hash = "sha256:0bf65ef45e606aff1994d35503e6b677c0b26cafff6506f8fd7187f3be840207"},
+    {file = "django_cors_headers-4.3.1-py3-none-any.whl", hash = "sha256:0b1fd19297e37417fc9f835d39e45c8c642938ddba1acce0c1753d3edef04f36"},
+]
+
+[package.dependencies]
+asgiref = ">=3.6"
+Django = ">=3.2"
+
+[[package]]
 name = "django-filter"
 version = "23.4"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
@@ -984,4 +1010,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "b638831be816dc08e5425e5b7e454a250b3c17faca3fe8c956d67baa98baca01"
+content-hash = "8cfb771d14f4a9b257e85e6d3162bdb36fb9733d2a9176a62260c512cc8d5cb1"

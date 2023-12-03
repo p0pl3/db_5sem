@@ -1,0 +1,14 @@
+{% extends "admin:admin/index.html" %}
+
+{% comment %}{% block extrastyle %}
+    {{ block.super }}
+    {# --- custom styles --- #}
+{% endblock %}{% endcomment %}
+
+{% block content %}
+    <div class="custom_block">
+        <p><a href="{% url 'show_admin_custom_page' %}">Sql функции</a></p>
+    </div>
+
+    {{ block.super }}
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from .views import *
+from django.contrib.auth.decorators import user_passes_test
 
 router = DefaultRouter()
 router.register(r'client_transport', ClientTransportViewSet, basename='clienttransport')
@@ -23,4 +24,7 @@ urlpatterns = [
     path('get_count_crashed_by_model/', get_count_crashed_by_modelViewSet.as_view()),
     path('update_overdue_order/', update_overdue_orderViewSet.as_view()),
     path('remove_old_order/', remove_old_orderViewSet.as_view()),
+
+    path(r'^admin-custom-page/$', user_passes_test(lambda u: u.is_superuser)(show_admin_custom_page), name='show_admin_custom_page'),
+
 ]

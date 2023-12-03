@@ -226,3 +226,10 @@ class remove_old_orderViewSet(APIView):
             row = cursor.fetchone()
         print(row)
         return JsonResponse({'status': True})
+
+
+
+def show_admin_custom_page(request):
+    from django.shortcuts import render
+    ctx = {'data': 'test'}
+    return render(request, 'func/show_func.html', ctx)
